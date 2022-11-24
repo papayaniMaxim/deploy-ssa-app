@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import axios from "axios";
 import { IData } from "./interfaces";
 import getComment from "./getComment";
-import data from "./data";
 import {
   createStorageRecord,
   getAllOrderRecords,
