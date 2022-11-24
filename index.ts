@@ -1,13 +1,9 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import axios from "axios";
 import { IData } from "./interfaces";
-import getComment from "./getComment";
+import getComment from "./services/getComment";
 import {
   createStorageRecord,
-  getAllOrderRecords,
-  getAllStorageRecords,
-  getOrderRecord,
   orderCatalogId,
   updateOrderRecord,
 } from "./services/bpiumService";
@@ -22,7 +18,8 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.post("/api", (req: Request, res: Response) => {
   const data: IData = req.body;
   const event = data.hook.event;
-  if (
+  
+    if (
     data &&
     data.payload.catalogId === orderCatalogId &&
     event === "record.updated"
@@ -30,15 +27,16 @@ app.post("/api", (req: Request, res: Response) => {
     getComment().then((comment) =>
       updateOrderRecord(
         data.payload.catalogId,
-          data.payload.recordId,
-        comment.value,
+        data.payload.recordId,
+        comment.value
       ).then(() => {
         res.status(200);
         res.end();
       })
     );
   }
-  if (
+  
+    if (
     data &&
     data.payload.catalogId === orderCatalogId &&
     event === "record.created"
@@ -47,19 +45,18 @@ app.post("/api", (req: Request, res: Response) => {
     const catalogId = data.payload.catalogId;
     const recordId = data.payload.recordId;
     createStorageRecord(catalogId, recordId, comment).then(() => {
-        res.status(200);
-        res.end();
-      });
+      res.status(200);
+      res.end();
+    });
   }
 });
 
 app.get("/api", (req: Request, res: Response) => {
   console.log("get");
-  res.json({ max: "max" });
+  res.send("Привет, api работает согласно тз");
   res.end();
 });
 
 app.listen(port, () => {
   console.log(`Server is running at https://localhost:${port}`);
 });
-

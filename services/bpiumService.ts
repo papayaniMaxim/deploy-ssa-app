@@ -42,8 +42,8 @@ export function getStorageRecord(recordId: number) {
 }
 
 export function createStorageRecord(
-  catalogId: number|string,
-  recordId: number|string,
+  catalogId: number | string,
+  recordId: number | string,
   comment: string
 ) {
   //URL: {domain}/api/v1/catalogs/{catalogId}/records
@@ -60,13 +60,13 @@ export function createStorageRecord(
   };
   return axios.post(
     domain + "api/v1/catalogs/" + storageCatalogId + "/records/",
-      recordConfig,
-      reqOpt
+    recordConfig,
+    reqOpt
   );
 }
 export function updateOrderRecord(
-  catalogId: number|string,
-  recordId: number|string,
+  catalogId: number | string,
+  recordId: number | string,
   comment: string
 ) {
   //URL: {domain}/api/v1/catalogs/{catalogId}/records
@@ -77,7 +77,7 @@ export function updateOrderRecord(
   };
   return axios.patch(
     domain + "api/v1/catalogs/" + catalogId + "/records/" + recordId,
-      recordConfig,
-      reqOpt
+    recordConfig,
+    reqOpt
   );
 }

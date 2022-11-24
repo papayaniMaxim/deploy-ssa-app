@@ -45,15 +45,10 @@ export interface IStorageRecord {
   id: string;
   catalogId: string;
   title: string;
-  values: IValues;
+  values: any;
 }
 
-export interface IValues {
-  "2"?: string;
-  "3"?: I3[];
-  "4"?: string;
-  "15"?: I15;
-}
+
 
 export interface I3 {
   sectionId?: string;
