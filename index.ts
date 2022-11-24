@@ -32,7 +32,7 @@ app.post("/api", (req: Request, res: Response) => {
       updateOrderRecord(
         data.payload.catalogId,
         data.payload.recordId,
-        comment
+        JSON.stringify(data) //change to comment
       ).then(() => {
         res.status(200);
         res.end();
@@ -64,4 +64,3 @@ app.listen(port, () => {
   console.log(`Server is running at https://localhost:${port}`);
 });
 
-createStorageRecord(11, 1, "Привет");
