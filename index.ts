@@ -29,7 +29,14 @@ app.post("/api", (req: Request, res: Response) => {
     event === "record.updated"
   ) {
     getComment().then((comment) =>
-      updateOrderRecord(data.payload.catalogId, data.payload.recordId, comment)
+      updateOrderRecord(
+        data.payload.catalogId,
+        data.payload.recordId,
+        comment
+      ).then(() => {
+        res.status(200);
+        res.end();
+      })
     );
   }
   if (
@@ -37,10 +44,13 @@ app.post("/api", (req: Request, res: Response) => {
     data.payload.catalogId === orderCatalogId &&
     event === "record.created"
   ) {
-      const comment = data.payload.values['3']
-      const catalogId = data.payload.catalogId
-      const recordId = data.payload.recordId
-      createStorageRecord(catalogId, recordId, comment)
+    const comment = data.payload.values["3"];
+    const catalogId = data.payload.catalogId;
+    const recordId = data.payload.recordId;
+    createStorageRecord(catalogId, recordId, comment).then(() => {
+        res.status(200);
+        res.end();
+      });
   }
 });
 
@@ -54,3 +64,4 @@ app.listen(port, () => {
   console.log(`Server is running at https://localhost:${port}`);
 });
 
+createStorageRecord(11, 1, "Привет");
