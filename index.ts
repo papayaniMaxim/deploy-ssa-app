@@ -31,8 +31,8 @@ app.post("/api", (req: Request, res: Response) => {
     getComment().then((comment) =>
       updateOrderRecord(
         data.payload.catalogId,
-        data.payload.recordId,
-        JSON.stringify(data) //change to comment
+          data.payload.recordId,
+        comment.value,
       ).then(() => {
         res.status(200);
         res.end();
